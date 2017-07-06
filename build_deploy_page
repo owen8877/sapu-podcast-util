@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ -z "$1" ]
+then
+    read -p "Please enter commit info > " COMMMIT
+else
+    COMMIT="$1"
+fi
+
+hexo clean && hexo g && git add . && git commit -m "$COMMIT" "$2" && hexo d

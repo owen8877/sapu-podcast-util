@@ -1,0 +1,16 @@
+#!/bin/sh
+source config
+if [ -z $2 ]
+then
+    exit 1
+fi
+tac $1 | head -n -1 | tac | awk -F '\t' '{if ($2 ~ /[0-9]*:[0-9]*:[0-9]*.[0-9]*/) {print "CHAPTER"NR"="$2"\nCHAPTER"NR"NAME="$1} else {print "CHAPTER"NR"=00:"$2"\nCHAPTER"NR"NAME="$1}}' > "$1.mm"
+
+FILE=`basename "$2" .aac`
+MP4Box -add "$2" -chap "$1.mm" "$FILE.m4a"
+mp4tags -album "$ALBUM_NAME" -artist "$ARTIST" -genre "$GENRE" -albumartist "$ARTIST" -song "$FILE" -year "$YEAR" "$FILE.m4a"
+mediainfo "$FILE.m4a"
+echo "*****Duration Info*****"
+mediainfo "$FILE.m4a" | grep "Duration"
+echo "*****Size Info*****"
+ls -lag "$FILE.m4a"
