@@ -5,4 +5,4 @@ then
 fi
 tac $1 | head -n -1 | tac | awk -F '\t' 'BEGIN{print "chapters: ["} {print "  [\""$2"\", \""$1"\"],"} END{print "]"}'
 echo
-tac $1 | head -n -1 | tac | awk -F '\t' 'BEGIN{print "## TimeLine"} {print "- "$2" "$1}'
+tac $1 | head -n -1 | tac | awk -F '\t' 'BEGIN{print "### TimeLine"} {print "- "$2" "$1}'
