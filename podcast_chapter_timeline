@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ -z $1 ]
+then
+    exit 1
+fi
+tac $1 | head -n -1 | tac | awk -F '\t' 'BEGIN{print "### TimeLine"} {print "- "$2" "$1}'
