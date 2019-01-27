@@ -1,8 +1,0 @@
-#!/bin/sh
-source config
-
-YEAR=`date +%Y`
-FILE=`basename "$1" .mp3`
-id3tag -A"$ALBUM_NAME" -a"$ARTIST" -g"$GENRE" -s"$FILE" -y"$YEAR"
-id3info "$FILE.mp3"
-ls -lag "$FILE.mp3"
