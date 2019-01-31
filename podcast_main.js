@@ -9,6 +9,7 @@ const yargs = require('yargs')
 const generate = require('./command/generate')
 const deploy = require('./command/deploy')
 const init = require('./command/init')
+const qrcode = require('./command/qrcode')
 
 const CONSOLE = {
   VERBOSE_LEVEL: 0,
@@ -29,6 +30,9 @@ const argv = yargs
   .command(['deploy [episode_n]', 'd'], 'Deploy static files.',
     args => args.positional('episode_n', {type: 'number'}),
     argv => deploy(argv, CONSOLE))
+  .command(['qrcode [episode_n]', 'q'], 'Generate qr code for album cover.',
+    args => args.positional('episode_n', {type: 'number'}),
+    argv => qrcode(argv, CONSOLE))
   .count('verbose')
     .alias('v', 'verbose')
   .option('only', {
