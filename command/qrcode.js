@@ -22,7 +22,8 @@ async function generate_qrcode(meta_data, ENV, CONSOLE) {
 
   const date = moment(meta_data.date)
 
-  const qr_command = `cd ${image_working_path}; qrencode -l L -t PNG -o qr.png ${ENV.CONFIG.URL}/${date.year()}/${date.month()+1}/${date.date()}/${n_dashed_title}/`
+  const month_str = `${date.month()+1}`.padStart(2, '0'), date_str = `${date.date()}`.padStart(2, '0')
+  const qr_command = `cd ${image_working_path}; qrencode -l L -t PNG -o qr.png ${ENV.CONFIG.URL}/${date.year()}/${month_str}/${date_str}/${n_dashed_title}/`
   CONSOLE.INFO(qr_command)
   const qr_result = await exec(qr_command, CONSOLE)
 }
