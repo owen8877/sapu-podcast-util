@@ -17,8 +17,12 @@ async function generate_qrcode(meta_data, ENV, CONSOLE) {
   const image_path = `${ENV.MEDIA.PIC}/${ENV.episode_n}/${ENV.episode_n}.xcf`
   
   await fs.ensureDir(image_working_path)
-  await fs.copy(template_path, image_path)
-  CONSOLE.INFO('Copied template file.')
+  if (await fs.pathExists(image_path)) {
+    CONSOLE.INFO(`${image_path} exists; skip the copying stage.`)
+  } else {
+    await fs.copy(template_path, image_path)
+    CONSOLE.INFO('Copied template file.')
+  }
 
   const date = moment(meta_data.date)
 
